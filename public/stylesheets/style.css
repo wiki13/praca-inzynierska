@@ -1,0 +1,149 @@
+body {
+  background-color: black;
+  color: white;
+  overflow-y: hidden;
+}
+.block {
+  border: 1px solid white;
+}
+.buttons {
+  float: right;
+}
+nav {
+  position: relative;
+  width: 100%;
+  height: 19vw;
+}
+div.menu {
+  position: relative;
+  width: 100%;
+  height: 10vw;
+  margin-top: 10px;
+}
+nav > div > div {
+  width: 10vw;
+  height: 10vw;
+  float: left;
+  margin: 1vw;
+  margin-top: 0;
+}
+.facebook:hover #c3 {
+  transform: rotate(30deg);
+  transform-origin: 50% 50%;
+}
+.facebook:hover #c4 {
+  transform: rotate(-30deg);
+  transform-origin: 50% 50%;
+}
+main {
+  position: relative;
+  height: 65vh;
+  width: 100%;
+  margin: auto;
+  overflow: hidden;
+  margin-top: 0;
+}
+.clock {
+  width: 18vw;
+  height: 18vw;
+  margin: auto;
+}
+div.clock {
+  position: absolute;
+  right: 0;
+  left: 0;
+  top: 10px;
+}
+.message {
+  width: 24vw;
+  height: 95%;
+  margin: 20px;
+  float: left;
+  margin-top: 0;
+  position: relative;
+  /*  background-image: url('/images/message.svg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;*/
+  margin-bottom: 0;
+}
+/*
+.message>.inside{
+  width: 100%;
+  height: 100%;
+  background: red;
+  position: relative;
+}
+
+.message>.inside::before{
+  content: "";
+  position: absolute;
+  top:0;
+  left: 0;
+  border-bottom: @s_triangle solid red;
+  border-left: @s_triangle solid black;
+  border-right: @s_triangle solid black;
+  width: @w_windows + 0.2vw - @s_triangle*2;
+  height: 0;
+}
+
+.message>.inside::before{
+  content: "";
+  position: absolute;
+  top:0;
+  left: 0;
+  border-bottom: @s_triangle solid red;
+  border-left: @s_triangle solid black;
+  border-right: @s_triangle solid black;
+  width: @w_windows + 0.2vw - @s_triangle*2;
+  height: 0;
+}
+
+.message>.inside::after{
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  border-top: @s_triangle solid red;
+  border-left: @s_triangle solid black;
+  border-right: @s_triangle solid black;
+  width: @w_windows + 0.2vw - @s_triangle*2;
+  height: 0;
+}
+.message>.inside>.border::after{
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  border-top: @s_triangle solid black;
+  border-left: @s_triangle solid red;
+  border-right: @s_triangle solid red;
+  width: @w_windows + 0.2vw - @s_triangle*2;
+  height: 0;
+}
+.message>.inside>.border{
+
+}
+*/
+.rss {
+  width: 24vw;
+  height: 60%;
+  float: right;
+  margin: 20px;
+  margin-bottom: 0;
+  margin-top: 0;
+}
+.computer_monitoring {
+  width: 24vw;
+  height: 30%;
+  float: right;
+  margin: 20px;
+  clear: right;
+  margin-bottom: 0;
+}
+.terminal {
+  width: 40%;
+  height: 60%;
+  margin: auto;
+  margin-top: 100px;
+  margin-bottom: 0;
+}
