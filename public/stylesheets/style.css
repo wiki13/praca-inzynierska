@@ -24,6 +24,7 @@ div.menu {
   width: 100%;
   height: 10vw;
   margin-top: 30px;
+  z-index: 1;
 }
 nav > div > div {
   width: 10vw;
