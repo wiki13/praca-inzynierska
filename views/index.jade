@@ -1,6 +1,11 @@
 extends layout
 
 block content
+  script.
+      $(function(){
+        $('#text').jScrollPane({showArrows:false});
+      });
+    
   nav
     div.menu
         div.mail
@@ -305,8 +310,13 @@ block content
         svg(xmlns='http://www.w3.org/2000/svg', viewbox='0 0 269.66001 419.266', height='100%', width='100%',preserveAspectRatio="none")
           g(transform='translate(54.83 -694.158)', stroke='#fff')
             path(d='M147.91 1112.424H-53.83V760.839l65.92-65.681h201.74v351.584z', fill='none', stroke-width='2')
-            path(d='M-25.454 791.665v308.71', fill='none', stroke-width='5')
-            circle(cx='-25.454', cy='913.067', r='8.984', stroke-width='2')
+        div.text
+          h1#title tytuł
+          article#text
+            p jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst
+            p 2 jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst
+            p 3 jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst
+            p 4 jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst
 
       div.rss
         svg(xmlns='http://www.w3.org/2000/svg', viewbox='0 0 269.26599 264.797', height='100%', width='100%', preserveAspectRatio="none")
