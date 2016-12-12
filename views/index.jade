@@ -3,7 +3,9 @@ extends layout
 block content
   script.
       $(function(){
-        $('#text').jScrollPane({showArrows:false});
+        $('#text_message').jScrollPane({showArrows:true,autoReinitialise: true});
+        $('#terminal').jScrollPane({showArrows:true,autoReinitialise: true});
+        $('#text_rss').jScrollPane({showArrows:true,autoReinitialise: true});
       });
     
   nav
@@ -312,18 +314,29 @@ block content
             path(d='M147.91 1112.424H-53.83V760.839l65.92-65.681h201.74v351.584z', fill='none', stroke-width='2')
         div.text
           h1#title tytuł
-          article#text
+          article#text_message
             p jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst
             p 2 jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst
-            p 3 jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst
-            p 4 jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst
+            p 3 jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst 
+            p 4 jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst
+            p 5 jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst v jakiś tam tekst
+            p 6 jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst
 
       div.rss
         svg(xmlns='http://www.w3.org/2000/svg', viewbox='0 0 269.26599 264.797', height='100%', width='100%', preserveAspectRatio="none")
           g(stroke-width='1.926', fill='none', stroke='#fff')
             path(d='M529.342 574.27v47.771h-6.9v42.108l6.9 14.035v56.143l-6.9 14.036v42.108h7.188v47.66h-36.358v-19.589h-29.169l-14.584 19.7H362.01l-14.584-19.7h-29.169v19.7h-36.07m-.102.784v-47.772h6.901v-42.107l-6.9-14.036v-56.143l6.9-14.036v-42.107H281.8v-47.66h36.358v19.589h29.168v17.91h116.677v-17.91h29.169v-19.701h36.07', transform='matrix(1.07811 0 0 .99994 -302.773 -574.205)')
             path(d='M353.175 581.858h104.688v25.5H353.175z', transform='matrix(1.07811 0 0 .99994 -302.773 -574.205)')
-
+        div.text
+          h1#title tytuł
+          article#text_rss
+            p jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst
+            p 2 jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst
+            p 3 jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst 
+            p 4 jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst
+            p 5 jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst v jakiś tam tekst
+            p 6 jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst
+      
       div.computer_monitoring
         svg(xmlns='http://www.w3.org/2000/svg', viewbox='0 0 269.26599 132.39101', height='100%', width='100%', preserveAspectRatio="none")
           g(fill='none', stroke='#fff', stroke-width='1.956')
@@ -333,3 +346,15 @@ block content
       div.terminal
         svg(xmlns='http://www.w3.org/2000/svg', viewbox='0 0 442.39096 264.79699', height='100%', width='100%',preserveAspectRatio="none")
           path(d='M397.446 191.477h43.751v40.3L400.673 263.4H41.718L1.194 231.777v-40.3h43.751V73.32H1.194v-40.3L41.718 1.398h358.955l40.524 31.623v40.3h-43.751z', fill='none', stroke='#fff', stroke-width='1.996')
+        div.text
+          article#terminal
+              p terminal
+          //  p jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst
+          //    p 2 jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst
+          //  p 3 jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst 
+          //    p 4 jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst
+          //  p 5 jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst v jakiś tam tekst
+          //p 6 jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst jakiś tam tekst
+          form(action="#" method="method")
+              input(type="text", name="terminal_text")
+              input(type="submit", value="wyślij")
