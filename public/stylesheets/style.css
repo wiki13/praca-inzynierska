@@ -33,14 +33,62 @@ nav > div > div {
   margin: 1vw;
   margin-top: 0;
 }
-.facebook:hover #c3 {
+#c4,
+#c3,
+#mc1,
+#mc2,
+#tc3 {
+  -webkit-transition: -webkit-transform 1s;
+  -moz-transition: -moz-transform 1s;
+  -o-transition: -o-transform 1s;
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  transition: transform 1s;
+  transform-origin: 50% 50%;
+}
+.facebook svg:hover #c4 {
+  -webkit-transform: rotateY(180deg) rotateX(180deg);
+  -moz-transform: rotateY(180deg) rotateX(180deg);
+  -o-transform: rotateY(180deg) rotateX(180deg);
+  transform: rotateY(180deg) rotateX(180deg);
+}
+.facebook svg:hover #c3 {
+  -webkit-transform: rotateY(180deg) rotateX(-180deg);
+  -moz-transform: rotateY(180deg) rotateX(-180deg);
+  -o-transform: rotateY(180deg) rotateX(-180deg);
+  transform: rotateY(180deg) rotateX(-180deg);
+}
+.mail svg:hover #mc1 {
+  -webkit-transform: rotateZ(180deg) rotateX(-180deg);
+  -moz-transform: rotateZ(180deg) rotateX(-180deg);
+  -o-transform: rotateZ(180deg) rotateX(-180deg);
+  transform: rotateZ(180deg) rotateX(-180deg);
+}
+.mail svg:hover #mc2,
+.twiter svg:hover #tc3 {
+  -webkit-transform: rotateZ(-180deg);
+  -moz-transform: rotateZ(-180deg);
+  -o-transform: rotateZ(-180deg);
+  transform: rotateZ(-180deg);
+}
+.twiter svg:hover #s1,
+.twiter svg:hover #s2 {
+  -webkit-transform: scale(1.2);
+  -moz-transform: scale(1.2);
+  -o-transform: scale(1.2);
+  transform: scale(1.2);
+  transform-origin: 50% 50%;
+}
+/*.facebook:hover #c3{
   transform: rotate(30deg);
   transform-origin: 50% 50%;
 }
-.facebook:hover #c4 {
+.facebook:hover #c4{
   transform: rotate(-30deg);
   transform-origin: 50% 50%;
-}
+}*/
 main {
   position: relative;
   height: 65vh;
@@ -120,44 +168,6 @@ div.clock {
   bottom: 0px;
   width: 12px;
 }
-/*div.text>div.jScrollPaneContainer{
-  overflow:hidden;
-  position:absolute;
-  z-index:1;
-  height: 100% !important;
-  width: @w_windows !important;
-  top:20px;
-  margin-left: 2px;
-}
-.jScrollPaneTrack {
-  background: #fff;
-  cursor:pointer;
-  position:absolute;
-  top:0px;
-  height: 100%;
-  width: 5px !important;
-  left: 20px;
-}
-
-.jScrollPaneDrag {
-  cursor:pointer;
-  overflow:hidden;
-  position:absolute;
-  border: 5px solid #fff;
-  border-radius: 50%;
-  width: 20px !important;
-  height: 20px !important;
-  background: #000;
-  left: -12px;
-}
-
-.jScrollPaneDragTop {
-  left:0;
-  overflow:hidden;
-  position:absolute;
-  top:0;
-}
-*/
 .rss {
   width: 24vw;
   height: 60%;
