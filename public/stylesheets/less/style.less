@@ -40,9 +40,11 @@ nav>div>div{
   float: left;
   margin: 1vw;
   margin-top: 0;
+  cursor: pointer;
 }
 
-#c4, #c3 , #mc1, #mc2,#tc3{
+
+#c4, #c3 , #mc1, #mc2,#tc3,#rc1,#rc3,#sc7,#sc6,#sc4, #sc3{
   -webkit-transition: -webkit-transform 1s;
    -moz-transition: -moz-transform 1s;
      -o-transition: -o-transform 1s;
@@ -53,7 +55,12 @@ nav>div>div{
         transition: transform 1s;
   transform-origin: 50% 50%;
 }
-
+.settings svg:hover #sc7{
+  -webkit-transform: rotateY( 180deg );
+        -moz-transform: rotateY( 180deg);
+          -o-transform: rotateY(180deg);
+             transform: rotateY( 180deg);
+}
 
 .facebook svg:hover #c4{
   -webkit-transform: rotateY( 180deg ) rotateX(180deg);
@@ -62,42 +69,34 @@ nav>div>div{
              transform: rotateY( 180deg)  rotateX(180deg);
 }
 
-.facebook svg:hover #c3{
+.facebook svg:hover #c3, .settings svg:hover #sc3{
   -webkit-transform: rotateY( 180deg ) rotateX(-180deg);
         -moz-transform: rotateY( 180deg)  rotateX(-180deg);
           -o-transform: rotateY( 180deg)  rotateX(-180deg);
              transform: rotateY( 180deg)  rotateX(-180deg);
 }
 
-.mail svg:hover #mc1{
+.mail svg:hover #mc1,.settings svg:hover #sc6{
   -webkit-transform: rotateZ( 180deg ) rotateX(-180deg);
         -moz-transform: rotateZ( 180deg)  rotateX(-180deg);
           -o-transform: rotateZ( 180deg)  rotateX(-180deg);
              transform: rotateZ( 180deg)  rotateX(-180deg)
 }
 
-.mail svg:hover #mc2,.twiter svg:hover #tc3 {
+.mail svg:hover #mc2,.twiter svg:hover #tc3, .rec svg:hover #rc1, .settings svg:hover #sc4 {
   -webkit-transform: rotateZ( -180deg );
         -moz-transform: rotateZ( -180deg) ;
           -o-transform: rotateZ( -180deg) ;
              transform: rotateZ( -180deg);
 }
 
-.twiter svg:hover #s1, .twiter svg:hover #s2{
+.twiter svg:hover #s1, .twiter svg:hover #s2, .rec svg:hover #rc3{
   -webkit-transform: scale(1.2);
         -moz-transform: scale(1.2);
           -o-transform: scale(1.2);
              transform: scale(1.2);
   transform-origin: 50% 50%;
 }
-/*.facebook:hover #c3{
-  transform: rotate(30deg);
-  transform-origin: 50% 50%;
-}
-.facebook:hover #c4{
-  transform: rotate(-30deg);
-  transform-origin: 50% 50%;
-}*/
 
 main{
   position: relative;
@@ -202,8 +201,9 @@ div.clock{
 .rss> div.text {
   position: absolute;
   top:0;
-  width: @w_windows;
+  width: 22vw;
   height: 60%;
+  margin-left: 20px;
 }
 
 .rss> div.text> h1{
@@ -222,6 +222,17 @@ div.clock{
   margin: auto;
   position: relative;
 
+}
+.rss .arrow1, .rss .arrow2{
+    display: block !important;
+    cursor: pointer !important;
+    z-index: 9999 !important;
+}
+
+.rss .arrow1:hover,.rss .arrow2:hover {
+  transform-origin: 50% 50%;
+  transform: scale(1.5);
+  fill: #000 !important;
 }
 
 
