@@ -44,16 +44,45 @@ nav > div > div {
 #sc7,
 #sc6,
 #sc4,
-#sc3 {
+#sc3,
+#date {
   -webkit-transition: -webkit-transform 1s;
   -moz-transition: -moz-transform 1s;
   -o-transition: -o-transform 1s;
+  transition: transform 1s;
   -webkit-transform-style: preserve-3d;
   -moz-transform-style: preserve-3d;
   -o-transform-style: preserve-3d;
   transform-style: preserve-3d;
-  transition: transform 1s;
   transform-origin: 50% 50%;
+}
+#date {
+  overflow: hidden;
+  width: 20px;
+  height: 20px;
+  transform-origin: 53% 50%;
+}
+#date .front {
+  backface-visibility: hidden;
+  z-index: 10;
+}
+#date .back {
+  -webkit-transform: rotateY(180deg);
+  -moz-transform: rotateY(180deg);
+  -ms-transform: rotateY(180deg);
+  -o-transform: rotateY(180deg);
+  transform: rotateY(180deg);
+  backface-visibility: hidden;
+  z-index: -2;
+}
+#date:focus {
+  -webkit-transform: rotateY(180deg);
+  -moz-transform: rotateY(180deg);
+  -o-transform: rotateY(180deg);
+  transform: rotateY(180deg);
+}
+#date:focus .front {
+  z-index: 0;
 }
 .settings svg:hover #sc7 {
   -webkit-transform: rotateY(180deg);
