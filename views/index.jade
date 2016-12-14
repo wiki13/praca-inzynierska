@@ -2,10 +2,49 @@ extends layout
 
 block content
   script.
+      var rect = 0;
+      var interval;
       $(function(){
         $('#text_message').jScrollPane({showArrows:true,autoReinitialise: true});
         $('#terminal').jScrollPane({showArrows:true,autoReinitialise: true});
         $('#text_rss').jScrollPane({showArrows:true,autoReinitialise: true});
+      });
+    
+      $(document).on( "mousedown",'div.sound.buttons',function(e){
+        if(e.button == 0){
+          interval=setInterval(function () {
+            var button = $('div.sound.buttons>svg rect');
+            $(button[rect]).css({ "fill-opacity": "1" });
+            if(rect<button.length)
+                rect++;
+          }, 100);
+        }else if(e.button == 2){
+          interval=setInterval(function(){
+            if(rect>0)
+                rect--;
+            var button = $('div.sound.buttons>svg rect');
+            $(button[rect]).css({ "fill-opacity": "0.44" });
+          },100);
+        }
+      });
+      $(document).on( "mouseup",'div.sound.buttons',function(e){
+        clearInterval(interval);
+      });
+      $(document).on( "mouseout",'div.sound.buttons',function(e){
+        clearInterval(interval);
+      });
+      $(document).on( "mousewheel",function(e){
+        if(e.originalEvent.wheelDelta> 0){
+          var button = $('div.sound.buttons>svg rect');
+          $(button[rect]).css({ "fill-opacity": "1" });
+          if(rect<button.length)
+              rect++;
+        }else{
+          if(rect>0)
+              rect--;
+          var button = $('div.sound.buttons>svg rect');
+          $(button[rect]).css({ "fill-opacity": "0.44" });
+        }
       });
     
   nav
@@ -197,58 +236,59 @@ block content
                 path(style='line-height:normal;text-indent:0;text-align:start;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000;text-transform:none;block-progression:tb;isolation:auto;mix-blend-mode:normal', d='M150.856 42.081c-15.12.126-30.2 5.943-41.73 17.473-11.528 11.528-17.348 26.605-17.475 41.72h1.988c.128-14.599 5.755-29.158 16.9-40.304 11.149-11.148 25.714-16.775 40.317-16.9z', color='#000', font-weight='400', font-family='sans-serif', white-space='normal', overflow='visible', stroke-width='2')
                 path(d='M66.263-577.515a38.49 38.49 0 0 1-27.217 11.274 38.49 38.49 0 0 1-27.217-11.274l27.217-27.216z', transform='rotate(135 -51.124 -228.216)', stroke-width='.346')
               circle(r='123.484', cy='-101.572', transform='rotate(135)', cx='-35.056', stroke='#fff', stroke-width='1.109', fill='none')
-              path#ac(fill='#fff', fill-opacity='.447', stroke='#fff', d='M92.612-94.22h7.997v13.612h-7.997z')
-              use(xlink:href='#ac', transform='rotate(7.2 96.61 47.113)', width='100%', height='100%')
-              use(xlink:href='#ac', transform='rotate(14.4 96.61 47.113)', width='100%', height='100%')
-              use(xlink:href='#ac', transform='rotate(21.6 96.61 47.113)', width='100%', height='100%')
-              use(xlink:href='#ac', transform='rotate(28.8 96.61 47.113)', width='100%', height='100%')
-              use(xlink:href='#ac', transform='rotate(36 96.61 47.113)', width='100%', height='100%')
-              use(xlink:href='#ac', transform='rotate(43.2 96.61 47.113)', width='100%', height='100%')
-              use(xlink:href='#ac', transform='rotate(50.4 96.61 47.113)', width='100%', height='100%')
-              use(xlink:href='#ac', transform='rotate(57.6 96.61 47.113)', width='100%', height='100%')
-              use(xlink:href='#ac', transform='rotate(64.8 96.61 47.113)', width='100%', height='100%')
-              use(xlink:href='#ac', transform='rotate(72 96.61 47.113)', width='100%', height='100%')
-              use(xlink:href='#ac', transform='rotate(79.2 96.61 47.113)', width='100%', height='100%')
-              use(xlink:href='#ac', transform='rotate(86.4 96.61 47.113)', width='100%', height='100%')
-              use(xlink:href='#ac', transform='rotate(93.6 96.61 47.113)', width='100%', height='100%')
-              use(xlink:href='#ac', transform='rotate(100.8 96.61 47.113)', width='100%', height='100%')
-              use(xlink:href='#ac', transform='rotate(108 96.61 47.113)', width='100%', height='100%')
-              use(xlink:href='#ac', transform='rotate(115.2 96.61 47.113)', width='100%', height='100%')
-              use(xlink:href='#ac', transform='rotate(122.4 96.61 47.113)', width='100%', height='100%')
-              use(xlink:href='#ac', transform='rotate(129.6 96.61 47.113)', width='100%', height='100%')
-              use(xlink:href='#ac', transform='rotate(136.8 96.61 47.113)', width='100%', height='100%')
-              use(xlink:href='#ac', transform='rotate(144 96.61 47.113)', width='100%', height='100%')
-              use(xlink:href='#ac', transform='rotate(151.2 96.61 47.113)', width='100%', height='100%')
-              use(xlink:href='#ac', transform='rotate(158.4 96.61 47.113)', width='100%', height='100%')
-              use(xlink:href='#ac', transform='rotate(165.6 96.61 47.113)', width='100%', height='100%')
-              use(xlink:href='#ac', transform='rotate(172.8 96.61 47.113)', width='100%', height='100%')
-              use(xlink:href='#ac', transform='rotate(180 96.61 47.113)', width='100%', height='100%')
-              use(xlink:href='#ac', transform='rotate(-172.8 96.61 47.113)', width='100%', height='100%')
-              use(xlink:href='#ac', transform='rotate(-165.6 96.61 47.113)', width='100%', height='100%')
-              use(xlink:href='#ac', transform='rotate(-158.4 96.61 47.113)', width='100%', height='100%')
-              use(xlink:href='#ac', transform='rotate(-151.2 96.61 47.113)', width='100%', height='100%')
-              use(xlink:href='#ac', transform='rotate(-144 96.61 47.113)', width='100%', height='100%')
-              use(xlink:href='#ac', transform='rotate(-136.8 96.61 47.113)', width='100%', height='100%')
-              use(xlink:href='#ac', transform='rotate(-129.6 96.61 47.113)', width='100%', height='100%')
-              use(xlink:href='#ac', transform='rotate(-122.4 96.61 47.113)', width='100%', height='100%')
-              use(xlink:href='#ac', transform='rotate(-115.2 96.61 47.113)', width='100%', height='100%')
-              use(xlink:href='#ac', transform='rotate(-108 96.61 47.113)', width='100%', height='100%')
-              use(xlink:href='#ac', transform='rotate(-100.8 96.61 47.113)', width='100%', height='100%')
-              use(xlink:href='#ac', transform='rotate(-93.6 96.61 47.113)', width='100%', height='100%')
-              use(xlink:href='#ac', transform='rotate(-86.4 96.61 47.113)', width='100%', height='100%')
-              use(xlink:href='#ac', transform='rotate(-79.2 96.61 47.113)', width='100%', height='100%')
-              use(xlink:href='#ac', transform='rotate(-72 96.61 47.113)', width='100%', height='100%')
-              use(xlink:href='#ac', transform='rotate(-64.8 96.61 47.113)', width='100%', height='100%')
-              use(xlink:href='#ac', transform='rotate(-57.6 96.61 47.113)', width='100%', height='100%')
-              use(xlink:href='#ac', transform='rotate(-50.4 96.61 47.113)', width='100%', height='100%')
-              use(xlink:href='#ac', transform='rotate(-43.2 96.61 47.113)', width='100%', height='100%')
-              use(xlink:href='#ac', transform='rotate(-36 96.61 47.113)', width='100%', height='100%')
-              use(xlink:href='#ac', transform='rotate(-28.8 96.61 47.113)', width='100%', height='100%')
-              use(xlink:href='#ac', transform='rotate(-21.6 96.61 47.113)', width='100%', height='100%')
-              use(xlink:href='#ac', transform='rotate(-14.4 96.61 47.113)', width='100%', height='100%')
-              use(xlink:href='#ac', transform='rotate(-7.2 96.61 47.113)', width='100%', height='100%')
               path(style='line-height:normal;text-indent:0;text-align:start;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000;text-transform:none;block-progression:tb;isolation:auto;mix-blend-mode:normal', d='M149.35-47.691c-37.722.207-75.38 14.688-104.154 43.462C16.43 24.538 1.946 62.187 1.734 99.9h2.705C4.652 62.891 18.875 25.946 47.122-2.3c28.253-28.253 65.21-42.476 102.228-42.683z', color='#000', font-weight='400', font-family='sans-serif', white-space='normal', overflow='visible', fill='#fff', stroke='#fff', stroke-width='1.3')
               path(style='line-height:normal;text-indent:0;text-align:start;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000;text-transform:none;block-progression:tb;isolation:auto;mix-blend-mode:normal', d='M149.494-32.353c-33.844.171-67.638 13.158-93.452 38.972C30.23 32.43 17.244 66.216 17.07 100.056h2.71c.175-33.136 12.9-66.218 38.19-91.508 25.294-25.294 58.383-38.021 91.524-38.193z', color='#000', font-weight='400', font-family='sans-serif', white-space='normal', overflow='visible', fill='#fff', stroke='#fff', stroke-width='1.3')
+            g(fill="#fff", opacity="1", fill-opacity="0.44", stroke="#fff", stroke-width="1", stroke-miterlimit="4", stroke-dasharray="none",stroke-dashoffset="0",stroke-opacity="1")
+              rect(y='8.7465286', x='146.00165', height='13.611808', width='7.9967055')
+              rect(width='7.9967055', height='13.611808', x='163.6288', y='-11.236879', transform='matrix(0.9921147,0.12533323,-0.12533323,0.9921147,0,0)')
+              rect(width='7.9967055', height='13.611808', x='178.61238', y='-33.271984', transform='matrix(0.96858316,0.24868989,-0.24868989,0.96858316,0,0)')
+              rect(width='7.9967055', height='13.611808', x='190.71606', y='-57.011261', transform='matrix(0.92977649,0.36812455,-0.36812455,0.92977649,0,0)')
+              rect(width='7.9967055', height='13.611808', x='199.74899', y='-82.08036', transform='matrix(0.87630668,0.48175367,-0.48175367,0.87630668,0,0)')
+              rect(width='7.9967055', height='13.611808', x='205.56871', y='-108.08389', transform='matrix(0.80901699,0.58778525,-0.58778525,0.80901699,0,0)')
+              rect(width='7.9967055', height='13.611808', x='208.08344', y='-134.61182', transform='matrix(0.72896863,0.68454711,-0.68454711,0.72896863,0,0)')
+              rect(width='7.9967055', height='13.611808', x='207.25349', y='-161.2457', transform='matrix(0.63742399,0.77051324,-0.77051324,0.63742399,0,0)')
+              rect(width='7.9967055', height='13.611808', x='203.09198', y='-187.56555', transform='matrix(0.53582679,0.84432793,-0.84432793,0.53582679,0,0)')
+              rect(width='7.9967055', height='13.611808', x='195.66454', y='-213.15631', transform='matrix(0.42577929,0.90482705,-0.90482705,0.42577929,0,0)')
+              rect(width='7.9967055', height='13.611808', x='185.08827', y='-237.61435', transform='matrix(0.30901699,0.95105652,-0.95105652,0.30901699,0,0)')
+              rect(width='7.9967055', height='13.611808', x='171.53001', y='-260.55399', transform='matrix(0.18738131,0.98228725,-0.98228725,0.18738131,0,0)')
+              rect(width='7.9967055', height='13.611808', x='155.20358', y='-281.6134', transform='matrix(0.06279052,0.99802673,-0.99802673,0.06279052,0,0)')
+              rect(width='7.9967055', height='13.611808', x='136.36642', y='-300.46057', transform='matrix(-0.06279052,0.99802673,-0.99802673,-0.06279052,0,0)')
+              rect(width='7.9967055', height='13.611808', x='115.31562', y='-316.79819', transform='matrix(-0.18738131,0.98228725,-0.98228725,-0.18738131,0,0)')
+              rect(width='7.9967055', height='13.611808', x='92.383186', y='-330.36859', transform='matrix(-0.30901699,0.95105652,-0.95105652,-0.30901699,0,0)')
+              rect(width='7.9967055', height='13.611808', x='67.93074', y='-340.95779', transform='matrix(-0.42577929,0.90482705,-0.90482705,-0.42577929,0,0)')
+              rect(width='7.9967055', height='13.611808', x='42.343929', y='-348.3988', transform='matrix(-0.53582679,0.84432793,-0.84432793,-0.53582679,0,0)')
+              rect(width='7.9967055', height='13.611808', x='16.026306', y='-352.57422', transform='matrix(-0.63742399,0.77051324,-0.77051324,-0.63742399,0,0)')
+              rect(width='7.9967055', height='13.611808', x='-10.607172', y='-353.4183', transform='matrix(-0.72896863,0.68454711,-0.68454711,-0.72896863,0,0)')
+              rect(width='7.9967055', height='13.611808', x='-37.136391', y='-350.91763', transform='matrix(-0.80901699,0.58778525,-0.58778525,-0.80901699,0,0)')
+              rect(width='7.9967055', height='13.611808', x='-63.143009', y='-345.11169', transform='matrix(-0.87630668,0.48175367,-0.48175367,-0.87630668,0,0)')
+              rect(width='7.9967055', height='13.611808', x='-88.216881', y='-336.09204', transform='matrix(-0.92977649,0.36812455,-0.36812455,-0.92977649,0,0)')
+              rect(width='7.9967055', height='13.611808', x='-111.96259', y='-324.00095', transform='matrix(-0.96858316,0.24868989,-0.24868989,-0.96858316,0,0)')
+              rect(width='7.9967055', height='13.611808', x='-134.00563', y='-309.02902', transform='matrix(-0.9921147,0.12533323,-0.12533323,-0.9921147,0,0)')
+              rect(width='7.9967055', height='13.611808', x='-153.99837', y='-291.41248', transform='scale(-1,-1)')
+              rect(width='7.9967055', height='13.611808', x='-171.62552', y='-271.42905', transform='matrix(-0.9921147,-0.12533323,0.12533323,-0.9921147,0,0)')
+              rect(width='7.9967055', height='13.611808', x='-186.60909', y='-249.39397', transform='matrix(-0.96858316,-0.24868989,0.24868989,-0.96858316,0,0)')
+              rect(width='7.9967055', height='13.611808', x='-198.71277', y='-225.65465', transform='matrix(-0.92977649,-0.36812455,0.36812455,-0.92977649,0,0)')
+              rect(width='7.9967055', height='13.611808', x='-207.7457', y='-200.58556', transform='matrix(-0.87630668,-0.48175367,0.48175367,-0.87630668,0,0)')
+              rect(width='7.9967055', height='13.611808', x='-213.56546', y='-174.58209', transform='matrix(-0.80901699,-0.58778525,0.58778525,-0.80901699,0,0)')
+              rect(width='7.9967055', height='13.611808', x='-216.08017', y='-148.05418', transform='matrix(-0.72896863,-0.68454711,0.68454711,-0.72896863,0,0)')
+              rect(width='7.9967055', height='13.611808', x='-215.25017', y='-121.42023', transform='matrix(-0.63742399,-0.77051324,0.77051324,-0.63742399,0,0)')
+              rect(width='7.9967055', height='13.611808', x='-211.08867', y='-95.10038', transform='matrix(-0.53582679,-0.84432793,0.84432793,-0.53582679,0,0)')
+              rect(width='7.9967055', height='13.611808', x='-203.66127', y='-69.509666', transform='matrix(-0.42577929,-0.90482705,0.90482705,-0.42577929,0,0)')
+              rect(width='7.9967055', height='13.611808', x='-193.08499', y='-45.051605', transform='matrix(-0.30901699,-0.95105652,0.95105652,-0.30901699,0,0)')
+              rect(width='7.9967055', height='13.611808', x='-179.52673', y='-22.111973', transform='matrix(-0.18738131,-0.98228725,0.98228725,-0.18738131,0,0)')
+              rect(width='7.9967055', height='13.611808', x='-163.20029', y='-1.052531', transform='matrix(-0.06279052,-0.99802673,0.99802673,-0.06279052,0,0)')
+              rect(width='7.9967055', height='13.611808', x='-144.36314', y='17.794607', transform='matrix(0.06279052,-0.99802673,0.99802673,0.06279052,0,0)')
+              rect(width='7.9967055', height='13.611808', x='-123.31234', y='34.132202', transform='matrix(0.18738131,-0.98228725,0.98228725,0.18738131,0,0)')
+              rect(width='7.9967055', height='13.611808', x='-100.37988', y='47.702618', transform='matrix(0.30901699,-0.95105652,0.95105652,0.30901699,0,0)')
+              rect(width='7.9967055', height='13.611808', x='-75.927444', y='58.291832', transform='matrix(0.42577929,-0.90482705,0.90482705,0.42577929,0,0)')
+              rect(width='7.9967055', height='13.611808', x='-50.340649', y='65.732826', transform='matrix(0.53582679,-0.84432793,0.84432793,0.53582679,0,0)')
+              rect(width='7.9967055', height='13.611808', x='-24.022995', y='69.908287', transform='matrix(0.63742399,-0.77051324,0.77051324,0.63742399,0,0)')
+              rect(width='7.9967055', height='13.611808', x='2.6104512', y='70.752342', transform='matrix(0.72896863,-0.68454711,0.68454711,0.72896863,0,0)')
+              rect(width='7.9967055', height='13.611808', x='29.139673', y='68.251678', transform='matrix(0.80901699,-0.58778525,0.58778525,0.80901699,0,0)')
+              rect(width='7.9967055', height='13.611808', x='55.146297', y='62.445747', transform='matrix(0.87630668,-0.48175367,0.48175367,0.87630668,0,0)')
+              rect(width='7.9967055', height='13.611808', x='80.220177', y='53.426105', transform='matrix(0.92977649,-0.36812455,0.36812455,0.92977649,0,0)')
+              rect(width='7.9967055', height='13.611808', x='103.96587', y='41.334988', transform='matrix(0.96858316,-0.24868989,0.24868989,0.96858316,0,0)')
+              rect(width='7.9967055', height='13.611808', x='126.0089', y='26.363098', transform='matrix(0.9921147,-0.12533323,0.12533323,0.9921147,0,0)')
 
         
         div.settings.buttons

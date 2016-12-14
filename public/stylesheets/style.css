@@ -34,6 +34,9 @@ nav > div > div {
   margin-top: 0;
   cursor: pointer;
 }
+#ac1 {
+  fill: white!important;
+}
 #c4,
 #c3,
 #mc1,
