@@ -14,11 +14,11 @@ function createWindow () {
   mainWindow = new BrowserWindow({width: 800, height: 600})
 
   // and load the index.html of the app.
-  mainWindow.loadURL(`http://localhost:3000/`)
+  mainWindow.loadURL(`http://localhost:3000/login`)
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools()
-
+  
 /*  mainWindow.webContents.executeJavaScript( `
     var path = require('path');
     module.paths.push(path.resolve('node_modules'));
