@@ -3,6 +3,7 @@ var router = express.Router();
 var wit = require('node-wit');
 var rec= require('node-record-lpcm16');
 var request   = require('request');
+var search = require('../rec_lib/search.js');
 
 var ACCESS_TOKEN = "H3RQCF2SI746LFSS3ZKIPJVCSDLM2XYH";
 
@@ -24,6 +25,7 @@ router.post('/', function(req,res){
   exports.parseResults = function(err,resp,body){
     var message= JSON.parse(body);
   //  console.log(msg._text);
+    search.start(message._text);
     res.statusCode = 200;
     res.setHeader('Content-Type', 'text/plain');
     res.send(JSON.stringify({ msg: message._text} ));
