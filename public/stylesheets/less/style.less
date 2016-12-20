@@ -331,3 +331,109 @@ div.clock{
   width: 15%;
   color: white;
 }
+/*.................................... login ....................*/
+.container{
+  position: absolute;
+  margin: auto;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  width: 90vw;
+  height: 80vh;
+}
+.icon{
+    position: absolute;
+    margin: auto;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+.user{
+  width: 10vw;
+  height: 20vh;
+  top:30%;
+  left: 0;
+  right: 0;
+  background-image: url("/images/login.svg");
+  -webkit-animation: flip 5s infinite; /* Safari 4.0 - 8.0 */
+  animation: flip 5s infinite;
+}
+
+.exit{
+  width: 4vw;
+  height: 8vh;
+  top: 12%;
+  left: 10%;
+  background-image: url("/images/exit.svg");
+}
+
+.registration{
+  width: 4vw;
+  height: 8vh;
+  top: 12%;
+  right: 10%;
+  background-image: url("/images/registration.svg");
+}
+
+@keyframes flip {
+    0% {
+        -webkit-transform: rotateY(0deg );
+        -moz-transform: rotateY(0deg);
+        -o-transform: rotateY(0deg);
+         transform: rotateY( 0deg);
+         opacity: 1;
+       }
+    50% {
+        -webkit-transform: rotateY( 180deg );
+        -moz-transform: rotateY( 180deg);
+        -o-transform: rotateY(180deg);
+         transform: rotateY( 180deg);
+         opacity: 0;
+       }
+    100% {
+        -webkit-transform: rotateY(0deg );
+        -moz-transform: rotateY( 0deg);
+        -o-transform: rotateY(0deg);
+         transform: rotateY(0deg);
+         opacity: 1;
+       }
+}
+
+div.container > div.form {
+  position: absolute;
+  border: 5px solid #fff;
+  width: 40vw;
+  height: 5vh;
+  bottom: 200px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  padding: 10px;
+}
+
+div.container > div.form > div.form_icon {
+  position: relative;
+  width: 8%;
+  height: 100%;
+  background-image: url("/images/lock.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  float: left;
+}
+
+div.container > div.form form{
+  height: 90%;
+}
+
+div.container > div.form  input[type="password"]{
+  height: 100%;
+  width: 91%;
+  font-family: caption !important;
+  font-size:40px;
+  border: none;
+  background: none;
+  color: white;
+  text-align: center;
+}
