@@ -80,6 +80,7 @@ exports.wikipedia = function(data){
 
 exports.start=function(question,speech){
     var resp = [];
+    var text ="";
     if(question.search(/^(szukaj|znajdź)/i)!= -1){
       text=question.replace(/^(szukaj|znajdź)/i,"");
       resp = exports.google(text);
