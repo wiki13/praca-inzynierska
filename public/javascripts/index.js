@@ -46,17 +46,33 @@ $(document).on( "mousewheel",function(e){
 var rec_button=false;
 $(document).on("click",'div.rec.buttons',function(e){
   if(rec_button){
+    $('#rc3').css({'fill':'white','fill-opacity':'.573','stroke':'white'});
+    rec_button=false;
     $.ajax({
       type:"POST",
       url:'/',
       data:{'rec':'off'},
       dataType:'JSON'
     }).done(function(res){
-      $('#rc3').css({'fill':'white','fill-opacity':'.573','stroke':'white'});
-      rec_button=false;
       $('#text_message > div > div.jspPane').append('<p>'+res.msg+'</p>');
       console.log("off");
       console.log(res);
+      $.ajax({
+        type:"POST",
+        url:'/',
+        data:{'rec':'response'},
+        dataType:'JSON'
+      }).done(function(res){
+        console.log("response");
+        if(res.answer.length){
+          for (let i = 0; i < res.answer.length; i++) {
+            $('#text_message > div > div.jspPane').append('<p>'+res.answer[i]+'</p>');
+          }
+        }  
+      }).fail(function(res){
+        alert("wystąpił błąd");
+        console.log(res.responseText);
+      });
     }).fail(function(res){
       alert("wystąpił błąd");
       console.log(res.responseText);

@@ -1,31 +1,25 @@
 var express = require('express');
 var router = express.Router();
-var wit = require('node-wit');
 var rec= require('node-record-lpcm16');
 var request   = require('request');
 var search = require('../rec_lib/search.js');
 
 var ACCESS_TOKEN = "H3RQCF2SI746LFSS3ZKIPJVCSDLM2XYH";
-
-wit.captureTextIntent(ACCESS_TOKEN, "test", function (err, res) {
-    console.log("Response from Wit for text input: ");
-    if (err) console.log("Error: ", err);
-    console.log(JSON.stringify(res, null, " "));
-});
+var message="";
 
 /* GET home page. */
 router.get('/', function(req, res) {
   res.render('index', {  });
 });
 
+
 router.post('/', function(req,res){
   console.log(req.body.rec);
-  var message="";
+
 
   exports.parseResults = function(err,resp,body){
-    var message= JSON.parse(body);
+    message = JSON.parse(body);
   //  console.log(msg._text);
-    search.start(message._text);
     res.statusCode = 200;
     res.setHeader('Content-Type', 'text/plain');
     res.send(JSON.stringify({ msg: message._text} ));
@@ -37,10 +31,8 @@ router.post('/', function(req,res){
       verbose:true
     });
     res.status(200).json({msg: "ok"});
-  }
-
-/*stop nagrywania wysłanie do wit.ai i uruchomienie funkcji parseResults*/
-  if(req.body.rec=='off'){
+  }else if(req.body.rec=='off'){
+    /*stop nagrywania wysłanie do wit.ai i uruchomienie funkcji parseResults*/
     rec.stop().pipe(request.post({
       'url':'https://api.wit.ai/speech?v=20160526',
       'headers':{
@@ -49,6 +41,12 @@ router.post('/', function(req,res){
                 'Content-Type'  : 'audio/wav'
                 }
     },exports.parseResults));
+  }else if (req.body.rec == 'response') {
+    var answer=search.start(message._text,false);
+    console.log(answer);
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'text/plain');
+    res.send(JSON.stringify({ "answer": answer} ));
   }
 });
 

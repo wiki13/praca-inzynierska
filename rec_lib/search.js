@@ -30,7 +30,6 @@ exports.google = function(data){
         body.items[i].link+"\n");
         text+=body.items[i].title+' <break time="1000ms"/>';
       }*/
-      console.log(message);
       /*
       if(speech==true){
         Cylon.robot({
@@ -54,15 +53,15 @@ exports.google = function(data){
     }
   });*/
   return [message,text];
-}
+};
 
 exports.wikipedia = function(data){
   var a = {srsearch: data};
   a=querystring.stringify(a);
   var res = request('GET',"http://pl.wikipedia.org/w/api.php?action=query&format=json&uselang=pl&list=search&utf8=1&"+a);
   var response = JSON.parse(res.getBody('utf8'));
-  var text=  body.query.search[0].snippet.toString("utf8").replace(/<[a-z|\ |\=|\"]*>|<\/[a-z]*>/ig,"");
-  return [text,text];
+  var text=[response.query.search[0].snippet.toString("utf8").replace(/<[a-z|\ |\=|\"]*>|<\/[a-z]*>/ig,"")];
+  return [text,text[0]];
   /*request({
       url: "http://pl.wikipedia.org/w/api.php?action=query&format=json&uselang=pl&list=search&utf8=1&"+a,
       json: true
@@ -75,17 +74,18 @@ exports.wikipedia = function(data){
       }
   });*/
 
-}
+};
 
 
 exports.start=function(question,speech){
     var resp = [];
     var text ="";
+    console.log(question);
     if(question.search(/^(szukaj|znajdź)/i)!= -1){
       text=question.replace(/^(szukaj|znajdź)/i,"");
       resp = exports.google(text);
     }else if(question.search(/^(co to jest)/i)!= -1){
-      text=replace(/^(co to jest?)/i,"");
+      text=question.replace(/^(co to jest?)/i,"");
       resp = exports.wikipedia(text);
     }
     if(speech==true){
