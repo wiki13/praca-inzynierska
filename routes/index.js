@@ -1,15 +1,22 @@
+/* zrobić wyskakujące okno pogody */
 var express = require('express');
 var router = express.Router();
 var rec= require('node-record-lpcm16');
 var request   = require('request');
-var search = require('../rec_lib/search.js');
+var search = require('../rec_lib/voice.js');
+var request_sync   = require('sync-request');
 
 var ACCESS_TOKEN = "H3RQCF2SI746LFSS3ZKIPJVCSDLM2XYH";
 var message="";
-
+var place ="Zator"
+var weather = "";
 /* GET home page. */
 router.get('/', function(req, res) {
+  weather = request_sync('GET',"http://api.openweathermap.org/data/2.5/forecast?q="+place+"&appid=a299ed8313ffbd0726396d87ef056d1e");
+  weather=JSON.parse(weather.getBody('utf8'));
+  console.log(weather.list[0].weather[0].description);
   res.render('index', {  });
+
 });
 
 
@@ -42,7 +49,7 @@ router.post('/', function(req,res){
                 }
     },exports.parseResults));
   }else if (req.body.rec == 'response') {
-    var answer=search.start(message._text,false);
+    var answer=search.start(message._text,true);
     console.log(answer);
     res.statusCode = 200;
     res.setHeader('Content-Type', 'text/plain');
