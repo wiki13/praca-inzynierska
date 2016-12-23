@@ -1,6 +1,82 @@
 extends layout
 
 block content
+  script.
+        var rect = 0;
+        var interval;
+        var volInterval;
+        $(function(){
+          var button = $('div.sound.buttons>svg rect');
+          rect= #{vol} ; 
+          rect= parseInt(button.length*(rect/100));
+          console.log(rect);
+          for(var i =0; i<rect; i++){
+            $(button[i]).css({ "fill-opacity": "1" });
+          }
+          
+          $('div.sound.buttons').on("mousewheel",function(e){
+            var button = $('div.sound.buttons>svg rect');
+            if(e.originalEvent.wheelDelta> 0){
+              $(button[rect]).css({ "fill-opacity": "1" });
+              if(rect<button.length)
+                  rect++;
+            }else{
+              if(rect>0)
+                  rect--;
+              $(button[rect]).css({ "fill-opacity": "0.44" });
+            }
+            var vol = (rect/button.length)*100;
+            $.ajax({
+              type:"POST",
+              url:'/',
+              data:{'volume': vol},
+              dataType:'JSON'
+            });
+          });
+          
+        /*  volInterval=setInterval(function(){
+              var vol = (rect/button.length)*100;
+              $.ajax({
+                type:"POST",
+                url:'/',
+                data:{'volume': vol},
+                dataType:'JSON'
+              });
+          },500);*/
+          
+        });
+        
+        $(document).on( "mousedown",'div.sound.buttons',function(e){
+          if(e.button == 0){
+            interval=setInterval(function () {
+              var button = $('div.sound.buttons>svg rect');
+              $(button[rect]).css({ "fill-opacity": "1" });
+              if(rect<button.length)
+                  rect++;
+            }, 100);
+          }else if(e.button == 2){
+            interval=setInterval(function(){
+              if(rect>0)
+                  rect--;
+              var button = $('div.sound.buttons>svg rect');
+              $(button[rect]).css({ "fill-opacity": "0.44" });
+            },100);
+          }
+        });
+        $(document).on( "mouseup",'div.sound.buttons',function(e){
+          clearInterval(interval);
+          var button = $('div.sound.buttons>svg rect');
+          var vol = (rect/button.length)*100;
+          $.ajax({
+            type:"POST",
+            url:'/',
+            data:{'volume': vol},
+            dataType:'JSON'
+          });
+        });
+        $(document).on( "mouseout",'div.sound.buttons',function(e){
+          clearInterval(interval);
+        });
   script(type='text/javascript', src='/javascripts/index.js', attr)
   
   nav
@@ -326,7 +402,7 @@ block content
           g(transform='translate(54.83 -694.158)', stroke='#fff')
             path(d='M147.91 1112.424H-53.83V760.839l65.92-65.681h201.74v351.584z', fill='none', stroke-width='2')
         div.text
-          h1#title tytuł
+          h1#title
           article#text_message
             
       div.rss

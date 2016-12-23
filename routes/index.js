@@ -5,24 +5,26 @@ var rec= require('node-record-lpcm16');
 var request   = require('request');
 var search = require('../rec_lib/voice.js');
 var request_sync   = require('sync-request');
+var loudness = require('loudness');
 
 var ACCESS_TOKEN = "H3RQCF2SI746LFSS3ZKIPJVCSDLM2XYH";
 var message="";
 var place ="Zator"
 var weather = "";
+var volume = 0;
 /* GET home page. */
 router.get('/', function(req, res) {
-  weather = request_sync('GET',"http://api.openweathermap.org/data/2.5/forecast?q="+place+"&appid=a299ed8313ffbd0726396d87ef056d1e");
-  weather=JSON.parse(weather.getBody('utf8'));
-  console.log(weather.list[0].weather[0].description);
-  res.render('index', {  });
+  loudness.getVolume(function(err,vol){
+    weather = request_sync('GET',"http://api.openweathermap.org/data/2.5/forecast?q="+place+"&appid=a299ed8313ffbd0726396d87ef056d1e");
+    weather=JSON.parse(weather.getBody('utf8'));
+    console.log(weather.list[0].weather[0].description);
+    res.render('index', {"vol": vol });
+  });
 
 });
 
 
 router.post('/', function(req,res){
-  console.log(req.body.rec);
-
 
   exports.parseResults = function(err,resp,body){
     message = JSON.parse(body);
@@ -54,6 +56,15 @@ router.post('/', function(req,res){
     res.statusCode = 200;
     res.setHeader('Content-Type', 'text/plain');
     res.send(JSON.stringify({ "answer": answer} ));
+  }
+  if(req.body.volume){
+    console.log(req.body.volume);
+    loudness.setVolume(parseInt(req.body.volume),function(err){
+      if(err){
+        console.log(err);
+      }
+    });
+    res.send(200);
   }
 });
 

@@ -7,44 +7,9 @@ $(function(){
   $('#terminal').jScrollPane({showArrows:true,autoReinitialise: true});
   $('#text_rss').jScrollPane({showArrows:true,autoReinitialise: true});
 
-  $('div.sound.buttons').on("mousewheel",function(e){
-    if(e.originalEvent.wheelDelta> 0){
-      var button = $('div.sound.buttons>svg rect');
-      $(button[rect]).css({ "fill-opacity": "1" });
-      if(rect<button.length)
-          rect++;
-    }else{
-      if(rect>0)
-          rect--;
-      var button = $('div.sound.buttons>svg rect');
-      $(button[rect]).css({ "fill-opacity": "0.44" });
-    }
-  });
+
 });
 
-$(document).on( "mousedown",'div.sound.buttons',function(e){
-  if(e.button == 0){
-    interval=setInterval(function () {
-      var button = $('div.sound.buttons>svg rect');
-      $(button[rect]).css({ "fill-opacity": "1" });
-      if(rect<button.length)
-          rect++;
-    }, 100);
-  }else if(e.button == 2){
-    interval=setInterval(function(){
-      if(rect>0)
-          rect--;
-      var button = $('div.sound.buttons>svg rect');
-      $(button[rect]).css({ "fill-opacity": "0.44" });
-    },100);
-  }
-});
-$(document).on( "mouseup",'div.sound.buttons',function(e){
-  clearInterval(interval);
-});
-$(document).on( "mouseout",'div.sound.buttons',function(e){
-  clearInterval(interval);
-});
 
 var rec_button=false;
 $(document).on("click",'div.rec.buttons',function(e){
@@ -73,7 +38,7 @@ $(document).on("click",'div.rec.buttons',function(e){
           }
         }else if (res.answer[0]=="pogoda") {
         //  wykrespogody(res.answer[1]);
-          console.log("wykres pogody");
+        console.log("wykres pogody");
         }
       }).fail(function(res){
         alert("wystąpił błąd");
