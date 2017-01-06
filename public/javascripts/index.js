@@ -1,9 +1,24 @@
+/*
+zablokować przycisk rec do puki nie pojawi się odpowiedź
+*/
+
 var rect = 0;
 var interval;
+var weather_description={
+  "clear sky": "czyste niebo",
+  "few clouds": "mało chmur",
+  "scattered clouds": "częściowe zachmurzenie",
+  "broken clouds": "pochmurnie",
+  "shower rain": "delikatny deszcz",
+  "rain": "deszczowo",
+  "thunderstorm":"burzowo",
+  "snow": "śnieg",
+  "mist": "mgła",
+}
+
 
 function draw_chart (date,variable){
   var ctx = document.getElementById("chart").getContext("2d");
-  ctx.canvas.height = 100;
   var wykres = new Chart(ctx,{
     type: 'bar',
     data:{
@@ -74,6 +89,7 @@ function draw_chart (date,variable){
     ]
     },
     options: {
+      maintainAspectRatio: false,
       responsive: true,
       scales: {
         yAxes: [{
@@ -128,56 +144,72 @@ $(function(){
   $('#text_rss').jScrollPane({showArrows:true,autoReinitialise: true});
 });
 
+$(document).on("click",'div.frame>div.exit',function(e){
+  $('body > div.frame').toggleClass( "transparent" );
+});
 
 var rec_button=false;
 $(document).on("click",'div.rec.buttons',function(e){
   if(rec_button){
     $('#rc3').css({'fill':'white','fill-opacity':'.573','stroke':'white'});
     rec_button=false;
-    $.ajax({
-      type:"POST",
-      url:'/',
-      data:{'rec':'off'},
-      dataType:'JSON'
-    }).done(function(res){
-      $('#text_message > div > div.jspPane').append('<p>'+res.msg+'</p>');
-      console.log("off");
+    setTimeout(function () {
       $.ajax({
         type:"POST",
         url:'/',
-        data:{'rec':'response'},
+        data:{'rec':'off'},
         dataType:'JSON'
       }).done(function(res){
-        console.log("response");
-        if(res.answer[0]=="google"||res.answer[0]=="wikipedia"||res.answer[0]=="pogoda_teraz"){
-          for (let i = 0; i < res.answer[1].length; i++) {
-            $('#text_message > div > div.jspPane').append('<p>'+res.answer[1][i]+'</p>');
+        $('#text_message > div > div.jspPane').append('<p>'+res.msg+'</p>');
+        console.log("off");
+        $.ajax({
+          type:"POST",
+          url:'/',
+          data:{'rec':'response'},
+          dataType:'JSON'
+        }).done(function(res){
+          console.log("response");
+          if(res.answer[0]=="google"||res.answer[0]=="wikipedia"||res.answer[0]=="pogoda_teraz"){
+            for (let i = 0; i < res.answer[1].length; i++) {
+              $('#text_message > div > div.jspPane').append('<p>'+res.answer[1][i]+'</p>');
+            }
+          }else if (res.answer[0]=="pogoda") {
+            var date = [];
+            /*temp. temp min, temp max, wilgotność, prędkość wiatru*/
+            var variable=[[],[],[],[],[]];
+            var r =/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}/;
+            var temp =0;
+            for(var i=0; i<res.answer[1].length; i++){
+              date.push(r.exec(res.answer[1][i].dt_txt)[0]);
+              variable[0].push(Math.round((parseFloat(res.answer[1][i].main.temp)-273.15) * 100) / 100);
+              variable[1].push(Math.round((parseFloat(res.answer[1][i].main.temp_max)-273.15) * 100) / 100);
+              variable[2].push(Math.round((parseFloat(res.answer[1][i].main.temp_min)-273.15) * 100) / 100);
+              variable[3].push(res.answer[1][i].main.humidity);
+              variable[4].push(Math.round((parseFloat(res.answer[1][i].wind.speed)*3.6)*100)/100);
+              temp+=parseFloat(res.answer[1][i].main.temp);
+            }
+
+            $('body > div.frame.transparent').toggleClass( "transparent" );
+            var day = new Date(date[parseInt(date.length/2)]);
+            $('body > div.frame div.info>p.date').text(day.getUTCFullYear()+"/ "+(day.getUTCMonth()+1)+"/ "+day.getUTCDate());
+            $('body > div.frame div.info>div.weather>p.description').text("Jest "+
+            weather_description[res.answer[1][parseInt(res.answer[1].length/2)].weather[0].description]);
+            $('body > div.frame div.info>div.weather>p.pressure').text("Ciśnienie: "+
+            res.answer[1][parseInt(res.answer[1].length/2)].main.pressure);
+            temp = temp/res.answer[1].length;
+            temp = Math.round((temp-273.15)*100)/100;
+            $('body > div.frame div.info>div.weather>p.temp').text("Średnia temperatura: "+temp);
+            draw_chart(date,variable);
           }
-        }else if (res.answer[0]=="pogoda") {
-          var date = [];
-          /*temp. temp min, temp max, wilgotność, prędkość wiatru*/
-          var variable=[[],[],[],[],[]];
-          console.log(res.answer[1]);
-          var r =/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}/;
-          for(var i=0; i<res.answer[1].length; i++){
-            date.push(r.exec(res.answer[1][i].dt_txt)[0]);
-            variable[0].push(Math.round((parseFloat(res.answer[1][i].main.temp)-273.15) * 100) / 100);
-            variable[1].push(Math.round((parseFloat(res.answer[1][i].main.temp_max)-273.15) * 100) / 100);
-            variable[2].push(Math.round((parseFloat(res.answer[1][i].main.temp_min)-273.15) * 100) / 100);
-            variable[3].push(res.answer[1][i].main.humidity);
-            variable[4].push(Math.round((parseFloat(res.answer[1][i].wind.speed)*3.6)*100)/100);
-          }
-          $('body > div.frame.transparent').toggleClass( "transparent" );
-          draw_chart(date,variable);
-        }
+        }).fail(function(res){
+          alert("wystąpił błąd");
+          console.log(res.responseText);
+        });
       }).fail(function(res){
         alert("wystąpił błąd");
         console.log(res.responseText);
       });
-    }).fail(function(res){
-      alert("wystąpił błąd");
-      console.log(res.responseText);
-    });
+    }, 600);
   }else{
     $.ajax({
       type:"POST",

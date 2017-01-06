@@ -2,6 +2,8 @@
 dodanie wyrażenie regularnego dla pogody
 jaka jest pogoda w poniedziałek
 jaka jest pogoda jutro itp.
+obsługa błędów
+jaka jest w w poniedziałek pogoda
 */
 
 'use strict';
@@ -64,8 +66,13 @@ exports.weather = function(text){
     var weather = request('GET',"http://api.openweathermap.org/data/2.5/weather?q="+place+"&appid=a299ed8313ffbd0726396d87ef056d1e");
     weather=JSON.parse(weather.getBody('utf8'));
 
+    var deg =(Math.round((parseFloat(weather.main.temp)-273.15) * 100) / 100);
+    if(deg<0){
+      deg = " minus "+deg;
+    }
+
     var text = "Jest "+weather_description[weather.weather[0].description]+". Temperatura wynosi "+
-    (Math.round((parseFloat(weather.main.temp)-273.15) * 100) / 100)+ "stopni celsjusza. Ciśnienie wynosi "+
+    deg+ "stopni celsjusza. Ciśnienie wynosi "+
     weather.main.pressure+" hektopaskali, a wilgotność:  "+weather.main.humidity+" procent. Prędkość wiatru: "+weather.wind.speed+" metrów na sekundę";
 
     weather =[ "Temperatura wynosi: "+(Math.round((parseFloat(weather.main.temp)-273.15) * 100) / 100)+"°C \n Ciśnienie: "+
@@ -89,8 +96,12 @@ exports.weather = function(text){
           date = now.getDate()+1;
           message = weatherDay(date,weather);
           var len= Math.round((message.length/2)*100)/100;
+          var deg =   (Math.round((parseFloat(message[len].main.temp)-273.15) * 100) / 100);
+          if(deg<0){
+            deg = " minus "+deg;
+          }
           restext = "jutro będzie "+weather_description[message[len].weather[0].description]+". Temperatura wynosi "+
-          (Math.round((parseFloat(message[len].main.temp)-273.15) * 100) / 100)+ "stopni celsjusza. Ciśnienie wynosi "+
+          deg+ "stopni celsjusza. Ciśnienie wynosi "+
           message[len].main.pressure+" hektopaskali, a wilgotność:  "+message[len].main.humidity+" procent. Prędkość wiatru: "+
           (Math.round((parseFloat(message[len].wind.speed)*3.6)*100)/100)+" kilometrów na godzinę";
           console.log("jutro");
@@ -99,21 +110,30 @@ exports.weather = function(text){
       case "pojutrze":
           date = now.getDate()+2;
           message = weatherDay(date,weather);
-          len= Math.round(message.length/2);
+          var len= Math.round((message.length/2)*100)/100;
+          var deg =   (Math.round((parseFloat(message[len].main.temp)-273.15) * 100) / 100);
+          if(deg<0){
+            deg = " minus "+deg;
+          }
           restext = "pojutrze będzie "+weather_description[message[len].weather[0].description]+". Temperatura wynosi "+
-          (Math.round((parseFloat(message[len].main.temp)-273.15) * 100) / 100)+ "stopni celsjusza. Ciśnienie wynosi "+
+          deg+ "stopni celsjusza. Ciśnienie wynosi "+
           message[len].main.pressure+" hektopaskali, a wilgotność:  "+message[len].main.humidity+" procent. Prędkość wiatru: "+
-          message[len].wind.speed+" metrów na sekundę";
+          (Math.round((parseFloat(message[len].wind.speed)*3.6)*100)/100)+" kilometrów na godzinę";
           console.log("pojutrze");
           break;
 
       case "w poniedziałek":
           date = date+(8-now.getDay());
           message = weatherDay(date,weather);
-          restext = "w poniedziałek będzie "+weather_description[message[1].weather[0].description]+". Temperatura wynosi "+
-          (Math.round((parseFloat(message[1].main.temp)-273.15) * 100) / 100)+ "stopni celsjusza. Ciśnienie wynosi "+
-          message[1].main.pressure+" hektopaskali, a wilgotność:  "+message[1].main.humidity+" procent. Prędkość wiatru: "+
-          message[1].wind.speed+" metrów na sekundę";
+          var len= Math.round((message.length/2)*100)/100;
+          var deg =   (Math.round((parseFloat(message[len].main.temp)-273.15) * 100) / 100);
+          if(deg<0){
+            deg = " minus "+deg;
+          }
+          restext = "w poniedziałek będzie "+weather_description[message[len].weather[0].description]+". Temperatura wynosi "+
+          deg+ "stopni celsjusza. Ciśnienie wynosi "+
+          message[len].main.pressure+" hektopaskali, a wilgotność:  "+message[len].main.humidity+" procent. Prędkość wiatru: "+
+          (Math.round((parseFloat(message[len].wind.speed)*3.6)*100)/100)+" kilometrów na godzinę";
           console.log("poniedziałek");
           break;
 
@@ -124,10 +144,15 @@ exports.weather = function(text){
             date = date+(9-now.getDay());
           }
           message = weatherDay(date,weather);
-          restext = "we wtorek będzie "+weather_description[message[1].weather[0].description] +". Temperatura wynosi "+
-          (Math.round((parseFloat(message[1].main.temp)-273.15) * 100) / 100)+ "stopni celsjusza. Ciśnienie wynosi "+
-          message[1].main.pressure+" hektopaskali, a wilgotność:  "+message[1].main.humidity+" procent. Prędkość wiatru: "+
-          message[1].wind.speed+" metrów na sekundę";
+          var len= Math.round((message.length/2)*100)/100;
+          var deg =   (Math.round((parseFloat(message[len].main.temp)-273.15) * 100) / 100);
+          if(deg<0){
+            deg = " minus "+deg;
+          }
+          restext = "we wtorek będzie "+weather_description[message[len].weather[0].description]+". Temperatura wynosi "+
+          deg+ "stopni celsjusza. Ciśnienie wynosi "+
+          message[len].main.pressure+" hektopaskali, a wilgotność:  "+message[len].main.humidity+" procent. Prędkość wiatru: "+
+          (Math.round((parseFloat(message[len].wind.speed)*3.6)*100)/100)+" kilometrów na godzinę";
           console.log("wtorek");
           break;
 
@@ -138,10 +163,15 @@ exports.weather = function(text){
             date = date+(10-now.getDay());
           }
           message = weatherDay(date,weather);
-          restext = "w środę będzie "+weather_description[message[1].weather[0].description] +". Temperatura wynosi "+
-          (Math.round((parseFloat(message[1].main.temp)-273.15) * 100) / 100)+ "stopni celsjusza. Ciśnienie wynosi "+
-          message[1].main.pressure+" hektopaskali, a wilgotność:  "+message[1].main.humidity+" procent. Prędkość wiatru: "+
-          message[1].wind.speed+" metrów na sekundę";
+          var len= Math.round((message.length/2)*100)/100;
+          var deg =   (Math.round((parseFloat(message[len].main.temp)-273.15) * 100) / 100);
+          if(deg<0){
+            deg = " minus "+deg;
+          }
+          restext = "w środę będzie "+weather_description[message[len].weather[0].description]+". Temperatura wynosi "+
+          deg+ "stopni celsjusza. Ciśnienie wynosi "+
+          message[len].main.pressure+" hektopaskali, a wilgotność:  "+message[len].main.humidity+" procent. Prędkość wiatru: "+
+          (Math.round((parseFloat(message[len].wind.speed)*3.6)*100)/100)+" kilometrów na godzinę";
           console.log("środę");
           break;
 
@@ -152,10 +182,15 @@ exports.weather = function(text){
             date = date+(11-now.getDay());
           }
           message = weatherDay(date,weather);
-          restext = "w czwartek będzie "+weather_description[message[1].weather[0].description]+". Temperatura wynosi "+
-          (Math.round((parseFloat(message[1].main.temp)-273.15) * 100) / 100)+ "stopni celsjusza. Ciśnienie wynosi "+
-          message[1].main.pressure+" hektopaskali, a wilgotność:  "+message[1].main.humidity+" procent. Prędkość wiatru: "+
-          message[1].wind.speed+" metrów na sekundę";
+          var len= Math.round((message.length/2)*100)/100;
+          var deg =   (Math.round((parseFloat(message[len].main.temp)-273.15) * 100) / 100);
+          if(deg<0){
+            deg = " minus "+deg;
+          }
+          restext = "w czwartek będzie "+weather_description[message[len].weather[0].description]+". Temperatura wynosi "+
+          deg+ "stopni celsjusza. Ciśnienie wynosi "+
+          message[len].main.pressure+" hektopaskali, a wilgotność:  "+message[len].main.humidity+" procent. Prędkość wiatru: "+
+          (Math.round((parseFloat(message[len].wind.speed)*3.6)*100)/100)+" kilometrów na godzinę";
           console.log("czwartek");
           break;
 
@@ -166,10 +201,15 @@ exports.weather = function(text){
             date = date+(12-now.getDay());
           }
           message = weatherDay(date,weather);
-          restext = "w piątek będzie "+weather_description[message[1].weather[0].description] +". Temperatura wynosi "+
-          (Math.round((parseFloat(message[1].main.temp)-273.15) * 100) / 100)+ "stopni celsjusza. Ciśnienie wynosi "+
-          message[1].main.pressure+" hektopaskali, a wilgotność:  "+message[1].main.humidity+" procent. Prędkość wiatru: "+
-          message[1].wind.speed+" metrów na sekundę";
+          var len= Math.round((message.length/2)*100)/100;
+          var deg =   (Math.round((parseFloat(message[len].main.temp)-273.15) * 100) / 100);
+          if(deg<0){
+            deg = " minus "+deg;
+          }
+          restext = "w piątek będzie "+weather_description[message[len].weather[0].description]+". Temperatura wynosi "+
+          deg+ "stopni celsjusza. Ciśnienie wynosi "+
+          message[len].main.pressure+" hektopaskali, a wilgotność:  "+message[len].main.humidity+" procent. Prędkość wiatru: "+
+          (Math.round((parseFloat(message[len].wind.speed)*3.6)*100)/100)+" kilometrów na godzinę";
           console.log("piątek");
           break;
 
@@ -181,25 +221,34 @@ exports.weather = function(text){
           }
           console.log(date);
           message = weatherDay(date,weather);
-          console.log(message);
-          restext = "w sobotę będzie "+weather_description[message[1].weather[0].description]+". Temperatura wynosi "+
-          (Math.round((parseFloat(message[1].main.temp)-273.15) * 100) / 100)+ "stopni celsjusza. Ciśnienie wynosi "+
-          message[1].main.pressure+" hektopaskali, a wilgotność:  "+message[1].main.humidity+" procent. Prędkość wiatru: "+
-          message[1].wind.speed+" metrów na sekundę";
+          var len= Math.round((message.length/2)*100)/100;
+          var deg =   (Math.round((parseFloat(message[len].main.temp)-273.15) * 100) / 100);
+          if(deg<0){
+            deg = " minus "+deg;
+          }
+          restext = "w sobotę będzie "+weather_description[message[len].weather[0].description]+". Temperatura wynosi "+
+          deg+ "stopni celsjusza. Ciśnienie wynosi "+
+          message[len].main.pressure+" hektopaskali, a wilgotność:  "+message[len].main.humidity+" procent. Prędkość wiatru: "+
+          (Math.round((parseFloat(message[len].wind.speed)*3.6)*100)/100)+" kilometrów na godzinę";
           console.log("sobotę");
           break;
 
       case "w niedzielę":
           if(now.getDay()<7){
-            date=date+(7-now.getDay);
+            date=date+(7-now.getDay());
           }else {
             date = date+(14-now.getDay());
           }
           message = weatherDay(date,weather);
-          restext = "w niedzielę będzie "+weather_description[message[1].weather[0].description]+". Temperatura wynosi "+
-          (Math.round((parseFloat(message[1].main.temp)-273.15) * 100) / 100)+ "stopni celsjusza. Ciśnienie wynosi "+
-          message[1].main.pressure+" hektopaskali, a wilgotność:  "+message[1].main.humidity+" procent. Prędkość wiatru: "+
-          message[1].wind.speed+" metrów na sekundę";
+          var len= Math.round((message.length/2)*100)/100;
+          var deg = (Math.round((parseFloat(message[len].main.temp)-273.15) * 100) / 100);
+          if(deg<0){
+            deg = " minus "+deg;
+          }
+          restext = "w niedzielę będzie "+weather_description[message[len].weather[0].description]+". Temperatura wynosi "+
+          deg+ "stopni celsjusza. Ciśnienie wynosi "+
+          message[len].main.pressure+" hektopaskali, a wilgotność:  "+message[len].main.humidity+" procent. Prędkość wiatru: "+
+          (Math.round((parseFloat(message[len].wind.speed)*3.6)*100)/100)+" kilometrów na godzinę";
           console.log("niedzielę");
           break;
 

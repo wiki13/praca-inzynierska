@@ -81,13 +81,14 @@ block content
         });
   
   div.frame.transparent
-    div
+    div.exit
+    div.container
       div.info
         p.date
         div.weather
-          p Jest 
-          p Ciśnienie:
-          p Średnia temperatura:
+          p.description
+          p.pressure
+          p.temp
           div.block.icon
       div.chart
         canvas(id="chart")

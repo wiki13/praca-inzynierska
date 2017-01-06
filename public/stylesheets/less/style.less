@@ -343,7 +343,7 @@ div.frame{
   background: rgba(0, 0, 0, 0.7);
   z-index: 99;
 }
-div.frame>div{
+div.frame>div.container{
   position: absolute;
   width: 60%;
   height: 50%;
@@ -356,8 +356,22 @@ div.frame>div{
   bottom: 0;
   top: 0;
 }
+div.frame>div.exit{
+  position: absolute;
+  border: 2px solid white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  content: "X";
+  top: 22%;
+  right: -50%;
+  padding: 2px;
+  margin: auto;
+  background: black;
+  z-index: 9999999;
+}
 
-div.frame>div>div.info{
+div.frame>div.container>div.info{
   position: absolute;
   width: 30%;
   margin: auto;
