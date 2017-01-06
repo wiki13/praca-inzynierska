@@ -1,6 +1,8 @@
 extends layout
 
 block content
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js")
+  script(type='text/javascript', src='/javascripts/index.js', attr)
   script.
         var rect = 0;
         var interval;
@@ -77,8 +79,18 @@ block content
         $(document).on( "mouseout",'div.sound.buttons',function(e){
           clearInterval(interval);
         });
-  script(type='text/javascript', src='/javascripts/index.js', attr)
   
+  div.frame.transparent
+    div
+      div.info
+        p.date
+        div.weather
+          p Jest 
+          p Ciśnienie:
+          p Średnia temperatura:
+          div.block.icon
+      div.chart
+        canvas(id="chart")
   nav
     div.menu
         div.mail

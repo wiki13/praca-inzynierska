@@ -1,9 +1,26 @@
+/*
+dodanie wyrażenie regularnego dla pogody
+jaka jest pogoda w poniedziałek
+jaka jest pogoda jutro itp.
+*/
+
 'use strict';
 var querystring = require('querystring');
 var request   = require('sync-request');
 var Cylon = require("cylon");
 
 var place ="Zator";
+var weather_description={
+  "clear sky": "czyste niebo",
+  "few clouds": "mało chmur",
+  "scattered clouds": "częściowe zachmurzenie",
+  "broken clouds": "pochmurnie",
+  "shower rain": "delikatny deszcz",
+  "rain": "deszczowo",
+  "thunderstorm":"burzowo",
+  "snow": "śnieg",
+  "mist": "mgła",
+}
 
 
 function weatherDay (day,weather){
@@ -47,9 +64,9 @@ exports.weather = function(text){
     var weather = request('GET',"http://api.openweathermap.org/data/2.5/weather?q="+place+"&appid=a299ed8313ffbd0726396d87ef056d1e");
     weather=JSON.parse(weather.getBody('utf8'));
 
-    var text = "Jest "+weather.weather[0].description+". Temperatura wynosi "+
+    var text = "Jest "+weather_description[weather.weather[0].description]+". Temperatura wynosi "+
     (Math.round((parseFloat(weather.main.temp)-273.15) * 100) / 100)+ "stopni celsjusza. Ciśnienie wynosi "+
-    weather.main.pressure+" hektopaskali, a wilgotność:  "+weather.main.humidity+" procent. Prędkość wiatru: "+weather.wind.speed+" metrów na sekundę"
+    weather.main.pressure+" hektopaskali, a wilgotność:  "+weather.main.humidity+" procent. Prędkość wiatru: "+weather.wind.speed+" metrów na sekundę";
 
     weather =[ "Temperatura wynosi: "+(Math.round((parseFloat(weather.main.temp)-273.15) * 100) / 100)+"°C \n Ciśnienie: "+
     weather.main.pressure+" hPa \n Wilgotność: "+weather.main.humidity+"% \n Prędkość wiatru: "+ weather.wind.speed+"m/s" ];
@@ -66,115 +83,120 @@ exports.weather = function(text){
     var date = now.getDate();
     var message=[];
     var restext = "";
+    console.log(text);
     switch (text) {
       case "jutro":
           date = now.getDate()+1;
           message = weatherDay(date,weather);
-          restext = "jutro będzie "+message[1].weather[0].description+ +". Temperatura wynosi "+
-          (Math.round((parseFloat(message[1].main.temp)-273.15) * 100) / 100)+ "stopni celsjusza. Ciśnienie wynosi "+
-          message[1].main.pressure+" hektopaskali, a wilgotność:  "+message[1].main.humidity+" procent. Prędkość wiatru: "+
-          message[1].wind.speed+" metrów na sekundę";
+          var len= Math.round((message.length/2)*100)/100;
+          restext = "jutro będzie "+weather_description[message[len].weather[0].description]+". Temperatura wynosi "+
+          (Math.round((parseFloat(message[len].main.temp)-273.15) * 100) / 100)+ "stopni celsjusza. Ciśnienie wynosi "+
+          message[len].main.pressure+" hektopaskali, a wilgotność:  "+message[len].main.humidity+" procent. Prędkość wiatru: "+
+          (Math.round((parseFloat(message[len].wind.speed)*3.6)*100)/100)+" kilometrów na godzinę";
           console.log("jutro");
           break;
 
       case "pojutrze":
           date = now.getDate()+2;
           message = weatherDay(date,weather);
-          restext = "pojutrze będzie "+message[1].weather[0].description+ +". Temperatura wynosi "+
-          (Math.round((parseFloat(message[1].main.temp)-273.15) * 100) / 100)+ "stopni celsjusza. Ciśnienie wynosi "+
-          message[1].main.pressure+" hektopaskali, a wilgotność:  "+message[1].main.humidity+" procent. Prędkość wiatru: "+
-          message[1].wind.speed+" metrów na sekundę";
+          len= Math.round(message.length/2);
+          restext = "pojutrze będzie "+weather_description[message[len].weather[0].description]+". Temperatura wynosi "+
+          (Math.round((parseFloat(message[len].main.temp)-273.15) * 100) / 100)+ "stopni celsjusza. Ciśnienie wynosi "+
+          message[len].main.pressure+" hektopaskali, a wilgotność:  "+message[len].main.humidity+" procent. Prędkość wiatru: "+
+          message[len].wind.speed+" metrów na sekundę";
           console.log("pojutrze");
           break;
 
-      case " w poniedziałek":
+      case "w poniedziałek":
           date = date+(8-now.getDay());
           message = weatherDay(date,weather);
-          restext = "w poniedziałek będzie "+message[1].weather[0].description+ +". Temperatura wynosi "+
+          restext = "w poniedziałek będzie "+weather_description[message[1].weather[0].description]+". Temperatura wynosi "+
           (Math.round((parseFloat(message[1].main.temp)-273.15) * 100) / 100)+ "stopni celsjusza. Ciśnienie wynosi "+
           message[1].main.pressure+" hektopaskali, a wilgotność:  "+message[1].main.humidity+" procent. Prędkość wiatru: "+
           message[1].wind.speed+" metrów na sekundę";
           console.log("poniedziałek");
           break;
 
-      case " we wtorek":
+      case "we wtorek":
           if(now.getDay()<2){
              date = date+1;
           }else{
             date = date+(9-now.getDay());
           }
           message = weatherDay(date,weather);
-          restext = "we wtorek będzie "+message[1].weather[0].description+ +". Temperatura wynosi "+
+          restext = "we wtorek będzie "+weather_description[message[1].weather[0].description] +". Temperatura wynosi "+
           (Math.round((parseFloat(message[1].main.temp)-273.15) * 100) / 100)+ "stopni celsjusza. Ciśnienie wynosi "+
           message[1].main.pressure+" hektopaskali, a wilgotność:  "+message[1].main.humidity+" procent. Prędkość wiatru: "+
           message[1].wind.speed+" metrów na sekundę";
           console.log("wtorek");
           break;
 
-      case " w środę":
+      case "w środę":
           if(now.getDay()<3){
-            date=date+(3-now.getDay);
+            date=date+(3-now.getDay());
           }else {
             date = date+(10-now.getDay());
           }
           message = weatherDay(date,weather);
-          restext = "w środę będzie "+message[1].weather[0].description+ +". Temperatura wynosi "+
+          restext = "w środę będzie "+weather_description[message[1].weather[0].description] +". Temperatura wynosi "+
           (Math.round((parseFloat(message[1].main.temp)-273.15) * 100) / 100)+ "stopni celsjusza. Ciśnienie wynosi "+
           message[1].main.pressure+" hektopaskali, a wilgotność:  "+message[1].main.humidity+" procent. Prędkość wiatru: "+
           message[1].wind.speed+" metrów na sekundę";
           console.log("środę");
           break;
 
-      case " w czwartek":
+      case "w czwartek":
           if(now.getDay()<4){
-            date=date+(4-now.getDay);
+            date=date+(4-now.getDay());
           }else {
             date = date+(11-now.getDay());
           }
           message = weatherDay(date,weather);
-          restext = "w czwartek będzie "+message[1].weather[0].description+ +". Temperatura wynosi "+
+          restext = "w czwartek będzie "+weather_description[message[1].weather[0].description]+". Temperatura wynosi "+
           (Math.round((parseFloat(message[1].main.temp)-273.15) * 100) / 100)+ "stopni celsjusza. Ciśnienie wynosi "+
           message[1].main.pressure+" hektopaskali, a wilgotność:  "+message[1].main.humidity+" procent. Prędkość wiatru: "+
           message[1].wind.speed+" metrów na sekundę";
           console.log("czwartek");
           break;
 
-      case " w piątek":
+      case "w piątek":
           if(now.getDay()<5){
-            date=date+(5-now.getDay);
+            date=date+(5-now.getDay());
           }else {
             date = date+(12-now.getDay());
           }
           message = weatherDay(date,weather);
-          restext = "w piątek będzie "+message[1].weather[0].description+ +". Temperatura wynosi "+
+          restext = "w piątek będzie "+weather_description[message[1].weather[0].description] +". Temperatura wynosi "+
           (Math.round((parseFloat(message[1].main.temp)-273.15) * 100) / 100)+ "stopni celsjusza. Ciśnienie wynosi "+
           message[1].main.pressure+" hektopaskali, a wilgotność:  "+message[1].main.humidity+" procent. Prędkość wiatru: "+
           message[1].wind.speed+" metrów na sekundę";
           console.log("piątek");
           break;
 
-      case " w sobotę":
+      case "w sobotę":
           if(now.getDay()<6){
-            date=date+(6-now.getDay);
+            date=date+(6-now.getDay());
           }else {
             date = date+(13-now.getDay());
           }
+          console.log(date);
           message = weatherDay(date,weather);
-          restext = "w sobotę będzie "+message[1].weather[0].description+ +". Temperatura wynosi "+
+          console.log(message);
+          restext = "w sobotę będzie "+weather_description[message[1].weather[0].description]+". Temperatura wynosi "+
           (Math.round((parseFloat(message[1].main.temp)-273.15) * 100) / 100)+ "stopni celsjusza. Ciśnienie wynosi "+
           message[1].main.pressure+" hektopaskali, a wilgotność:  "+message[1].main.humidity+" procent. Prędkość wiatru: "+
           message[1].wind.speed+" metrów na sekundę";
           console.log("sobotę");
           break;
 
-      case " w niedzielę":
+      case "w niedzielę":
           if(now.getDay()<7){
             date=date+(7-now.getDay);
           }else {
             date = date+(14-now.getDay());
           }
           message = weatherDay(date,weather);
-          restext = "w niedzielę będzie "+message[1].weather[0].description+ +". Temperatura wynosi "+
+          restext = "w niedzielę będzie "+weather_description[message[1].weather[0].description]+". Temperatura wynosi "+
           (Math.round((parseFloat(message[1].main.temp)-273.15) * 100) / 100)+ "stopni celsjusza. Ciśnienie wynosi "+
           message[1].main.pressure+" hektopaskali, a wilgotność:  "+message[1].main.humidity+" procent. Prędkość wiatru: "+
           message[1].wind.speed+" metrów na sekundę";

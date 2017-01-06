@@ -1,4 +1,5 @@
 const electron = require('electron')
+var client = require('electron-connect').client; //<----
 const app = electron.app
 const BrowserWindow = electron.BrowserWindow
 
@@ -13,6 +14,8 @@ function createWindow () {
   mainWindow.on('closed', function () {
     mainWindow = null
   });
+
+  client.create(mainWindow);// <----
 }
 
 app.on('ready', createWindow)

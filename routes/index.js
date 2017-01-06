@@ -42,13 +42,14 @@ router.post('/', function(req,res){
     res.status(200).json({msg: "ok"});
   }else if(req.body.rec=='off'){
     /*stop nagrywania wysłanie do wit.ai i uruchomienie funkcji parseResults*/
+    /*przeczekanie ponieważ ucina zdanie*/
     rec.stop().pipe(request.post({
       'url':'https://api.wit.ai/speech?v=20160526',
       'headers':{
-                'Accept'        : 'application/vnd.wit.20160202+json',
-                'Authorization' : 'Bearer ' + ACCESS_TOKEN,
-                'Content-Type'  : 'audio/wav'
-                }
+        'Accept'        : 'application/vnd.wit.20160202+json',
+        'Authorization' : 'Bearer ' + ACCESS_TOKEN,
+        'Content-Type'  : 'audio/wav'
+      }
     },exports.parseResults));
   }else if (req.body.rec == 'response') {
     var answer=search.start(message._text,true);
